@@ -1,7 +1,6 @@
 package com.itschool.food.delivery.controllers;
 
 import com.itschool.food.delivery.models.dtos.UserDTO;
-import com.itschool.food.delivery.models.entities.User;
 import com.itschool.food.delivery.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
