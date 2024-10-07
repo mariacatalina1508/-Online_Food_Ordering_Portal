@@ -11,18 +11,25 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    // Endpoint pentru plasarea unei comenzi
     @PostMapping("/place")
     public ResponseEntity<String> placeOrder(@RequestBody OrderDTO orderDTO) {
         orderService.placeOrder(orderDTO);
         return ResponseEntity.ok("Order placed");
     }
+    // Endpoint pentru vizualizarea unei comenzi
     @GetMapping("/{orderId")
     public ResponseEntity<OrderDTO> getOrder(@PathVariable String orderId) {
         OrderDTO orderDTO = orderService.getOrderDetails(orderId);
         return ResponseEntity.ok(orderDTO);
     }
+    // Endpoint pentru anularea unei comenzi
     @DeleteMapping("/{orderId")
     public ResponseEntity<String> cancelOrder(@PathVariable String orderId) {
         orderService.cancelOrder(orderId);
