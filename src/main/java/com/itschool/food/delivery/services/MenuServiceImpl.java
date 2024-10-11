@@ -23,7 +23,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public UserDTO createMenu(MenuDTO menuDTO) {
+    public MenuDTO createMenu(MenuDTO menuDTO) {
         Menu MenuEntity = objectMapper.convertValue(MenuDTO, Menu.class);
         Menu menuEntityResponse = menuRepository.save(MenuEntity);
         log.info("Menu with id {} was saved", menuEntityResponse.getId());
