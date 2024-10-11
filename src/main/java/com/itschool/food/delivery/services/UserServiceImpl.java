@@ -1,7 +1,7 @@
 package com.itschool.food.delivery.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.food.delivery.exceptions.UserNotFoundException;
+import com.itschool.food.delivery.exceptions.UserCreateException;
 import com.itschool.food.delivery.models.dtos.UserDTO;
 import com.itschool.food.delivery.models.entities.User;
 import com.itschool.food.delivery.repositories.UserRepository;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long id) {
         return userRepository.findById(id)
                 .map(user -> objectMapper.convertValue(user, UserDTO.class))
-                .orElseThrow(() -> new UserNotFoundException("User with the ID" + id + "not found"));
+                .orElseThrow(() -> new UserCreateException("User with the ID" + id + "not found"));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
             log.info("Received UserDTO: {}", userDTO);
 
             return objectMapper.convertValue(updateUser, UserDTO.class);
-        }).orElseThrow(() -> new UserNotFoundException("User with the ID" + id + "not found"));
+        }).orElseThrow(() -> new UserCreateException("User with the ID" + id + "not found"));
     }
     @Override
     public void deleteUserById(Long id) {

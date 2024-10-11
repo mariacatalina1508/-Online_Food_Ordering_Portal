@@ -1,7 +1,7 @@
 package com.itschool.food.delivery.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.food.delivery.exceptions.MenuNotFoundException;
+import com.itschool.food.delivery.exceptions.MenuCreateException;
 import com.itschool.food.delivery.models.dtos.MenuDTO;
 import com.itschool.food.delivery.models.dtos.UserDTO;
 import com.itschool.food.delivery.models.entities.Menu;
@@ -34,7 +34,7 @@ public class MenuServiceImpl implements MenuService {
     public MenuDTO getMenuById(Long id) {
         return menuRepository.findById(id)
                 .map(menu -> objectMapper.convertValue(menu, MenuDTO.class))
-                .orElseThrow(() -> new MenuNotFoundException("Menu with the ID" + id + "not found"));
+                .orElseThrow(() -> new MenuCreateException("Menu with the ID" + id + "not found"));
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MenuServiceImpl implements MenuService {
             log.info("Received MenuDTO: {}", menuDTO);
 
             return objectMapper.convertValue(updateMenu, MenuDTO.class);
-        }).orElseThrow(() -> new MenuNotFoundException("Menu with the ID" + id + "not found"));
+        }).orElseThrow(() -> new MenuCreateException("Menu with the ID" + id + "not found"));
     }
 
     @Override
