@@ -55,7 +55,7 @@ public class MenuServiceImpl implements MenuService {
             existingMenu.setId(menuDTO.getId() != null ? menuDTO.getId() : existingMenu.getId());
             existingMenu.setName(menuDTO.getName() != null ? menuDTO.getName() : existingMenu.getName());
             existingMenu.setDescription(menuDTO.getDescription() != null ? menuDTO.getDescription() : existingMenu.getDescription());
-            existingMenu.setPrice(menuDTO.getPrice() != null ? menuDTO.getPrice() : existingMenu.getDescription());
+            existingMenu.setPrice(menuDTO.getPrice() != null ? menuDTO.getPrice() : existingMenu.getPrice());
 
 
             Menu updateMenu = menuRepository.save(existingMenu);

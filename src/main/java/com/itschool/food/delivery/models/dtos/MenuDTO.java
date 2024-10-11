@@ -7,5 +7,5 @@ public class MenuDTO {
     private Long id;
     private String name;
     private String description;
-    private double price;
+    private Long price;
 }
