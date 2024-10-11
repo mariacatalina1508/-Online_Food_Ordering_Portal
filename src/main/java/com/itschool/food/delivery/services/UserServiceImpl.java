@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
             return objectMapper.convertValue(updateUser, UserDTO.class);
         }).orElseThrow(() -> new UserCreateException("User with the ID" + id + "not found"));
     }
+
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);

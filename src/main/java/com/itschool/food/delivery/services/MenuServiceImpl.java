@@ -3,7 +3,6 @@ package com.itschool.food.delivery.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.MenuCreateException;
 import com.itschool.food.delivery.models.dtos.MenuDTO;
-import com.itschool.food.delivery.models.dtos.UserDTO;
 import com.itschool.food.delivery.models.entities.Menu;
 import com.itschool.food.delivery.repositories.MenuRepository;
 import lombok.extern.slf4j.Slf4j;
