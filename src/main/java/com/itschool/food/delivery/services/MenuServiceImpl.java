@@ -52,10 +52,11 @@ public class MenuServiceImpl implements MenuService {
             throw new IllegalArgumentException("Menu cannot be null");
         }
         return menuRepository.findById(id).map(existingMenu -> {
-            existingMenu.setId(menuDTO.getId());
+            existingMenu.setId(menuDTO.getId() != null ? menuDTO.getId() : existingMenu.getId());
             existingMenu.setName(menuDTO.getName() != null ? menuDTO.getName() : existingMenu.getName());
-            existingMenu.setDescription(menuDTO.setDescription() != null ? menuDTO.setDescription() : existingMenu.setDescription());
-            existingMenu.setPrice(menuDTO.setPrice() != null ? menuDTO.setPrice() : existingMenu.setPrice());
+            existingMenu.setDescription(menuDTO.getDescription() != null ? menuDTO.getDescription() : existingMenu.getDescription());
+            existingMenu.setPrice(menuDTO.getPrice() != null ? menuDTO.getPrice() : existingMenu.getDescription());
+
 
             Menu updateMenu = menuRepository.save(existingMenu);
             log.info("Received MenuDTO: {}", menuDTO);
