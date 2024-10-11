@@ -2,6 +2,7 @@ package com.itschool.food.delivery.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,4 +22,7 @@ public class User {
     private String phoneNumber;
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<User> users;
 }

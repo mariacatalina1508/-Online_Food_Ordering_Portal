@@ -7,7 +7,6 @@ import com.itschool.food.delivery.models.entities.User;
 import com.itschool.food.delivery.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Slf4j
