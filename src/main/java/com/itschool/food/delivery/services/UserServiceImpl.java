@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        User UserEntity = objectMapper.convertValue(UserDTO, User.class);
+        User UserEntity = objectMapper.convertValue(userDTO, User.class);
         User userEntityResponse = userRepository.save(UserEntity);
         log.info("User with id {} was saved", userEntityResponse.getId());
         return objectMapper.convertValue(userEntityResponse, UserDTO.class);
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUsers() {
-        List<User> users = UserRepository.findAll();
+        List<User> users = userRepository.findAll();
 
         return users.stream()
                 .map(user -> objectMapper.convertValue(user, UserDTO.class))
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUserById(Long id, UserDTO userDTO) {
-        if (UserDTO == null) {
+        if (userDTO == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
         return userRepository.findById(id).map(existingUser -> {
@@ -68,10 +68,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public List<UserDTO> getAllUsers() {
-        return List.of();
     }
 }

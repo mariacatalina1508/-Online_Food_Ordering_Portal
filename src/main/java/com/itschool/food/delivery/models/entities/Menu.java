@@ -19,6 +19,6 @@ public class Menu {
     @Column(name = "price")
     private double price;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    private List<Menu> menus;
+    //@OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    //private List<Menu> menus;
 }

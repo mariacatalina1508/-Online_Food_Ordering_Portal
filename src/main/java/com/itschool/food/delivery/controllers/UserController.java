@@ -17,7 +17,7 @@ public class UserController {
     }
     @PostMapping("/api/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.createUser(userDTO);
+        return ResponseEntity.ok(userService.createUser(userDTO));
     }
     @GetMapping("api/users/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {

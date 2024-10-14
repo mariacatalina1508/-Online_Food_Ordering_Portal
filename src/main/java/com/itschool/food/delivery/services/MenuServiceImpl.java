@@ -23,7 +23,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuDTO createMenu(MenuDTO menuDTO) {
-        Menu MenuEntity = objectMapper.convertValue(MenuDTO, Menu.class);
+        Menu MenuEntity = objectMapper.convertValue(menuDTO, Menu.class);
         Menu menuEntityResponse = menuRepository.save(MenuEntity);
         log.info("Menu with id {} was saved", menuEntityResponse.getId());
         return objectMapper.convertValue(menuEntityResponse, MenuDTO.class);
@@ -38,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> getMenus() {
-        List<Menu> menus = MenuRepository.findAll();
+        List<Menu> menus = menuRepository.findAll();
 
         return menus.stream()
                 .map(menu -> objectMapper.convertValue(menu, MenuDTO.class))
@@ -47,7 +47,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuDTO updateMenuById(Long id, MenuDTO menuDTO) {
-        if (MenuDTO == null) {
+        if (menuDTO == null) {
             throw new IllegalArgumentException("Menu cannot be null");
         }
         return menuRepository.findById(id).map(existingMenu -> {
