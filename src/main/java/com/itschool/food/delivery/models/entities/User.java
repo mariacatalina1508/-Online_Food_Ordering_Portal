@@ -23,6 +23,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<User> users;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<User> users;
 }

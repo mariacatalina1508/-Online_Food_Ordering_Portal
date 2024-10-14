@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User cannot be null");
         }
         return userRepository.findById(id).map(existingUser -> {
-            existingUser.setId(userDTO.getId());
             existingUser.setFirstName(userDTO.getFirstName() != null ? userDTO.getFirstName() : existingUser.getFirstName());
             existingUser.setLastName(userDTO.getLastName() != null ? userDTO.getLastName() : existingUser.getLastName());
             existingUser.setAddress(userDTO.getAddress() != null ? userDTO.getAddress() : existingUser.getAddress());
