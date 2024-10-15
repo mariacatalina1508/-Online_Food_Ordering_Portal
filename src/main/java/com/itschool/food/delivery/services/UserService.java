@@ -1,8 +1,10 @@
 package com.itschool.food.delivery.services;
 
 import com.itschool.food.delivery.models.dtos.UserDTO;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public interface UserService {
 
     UserDTO createUser(UserDTO userDTO);
