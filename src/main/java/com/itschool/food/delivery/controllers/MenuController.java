@@ -19,16 +19,16 @@ public class MenuController {
     public ResponseEntity<MenuDTO> createMenu(@RequestBody MenuDTO menuDTO) {
         return ResponseEntity.ok(menuService.createMenu(menuDTO));
     }
-    @GetMapping("api/menus/{id}")
+    @GetMapping("/api/menus/{id}")
     public ResponseEntity<MenuDTO> getMenuById(@PathVariable Long id) {
         return ResponseEntity.ok(menuService.getMenuById(id));
     }
-    @PutMapping("api/menus/{id}")
+    @PutMapping("/api/menus/{id}")
     public ResponseEntity<String> updateMenuById(@PathVariable Long id, @RequestBody MenuDTO menuDTO) {
         MenuDTO updateMenuById = menuService.updateMenuById(id, menuDTO);
         return ResponseEntity.ok("Menu updated successfully");
     }
-    @DeleteMapping("api/menus/{id}")
+    @DeleteMapping("/api/menus/{id}")
     public ResponseEntity<String> deleteMenuById(@PathVariable Long id) {
         menuService.deleteMenuById(id);
         return ResponseEntity.ok("Menu deleted successfully");

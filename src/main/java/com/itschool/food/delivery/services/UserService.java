@@ -1,7 +1,6 @@
 package com.itschool.food.delivery.services;
 
 import com.itschool.food.delivery.models.dtos.UserDTO;
-
 import java.util.List;
 
 public interface UserService {

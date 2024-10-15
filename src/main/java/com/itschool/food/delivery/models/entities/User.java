@@ -2,7 +2,6 @@ package com.itschool.food.delivery.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.List;
 
 @Data
 @Entity
