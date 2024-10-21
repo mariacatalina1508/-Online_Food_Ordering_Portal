@@ -1,12 +1,13 @@
 package com.itschool.food.delivery.controllers;
 
-import com.itschool.food.delivery.models.dtos.OrderDTO;
+import com.itschool.food.delivery.models.dtos.RequestOrderDTO;
+import com.itschool.food.delivery.models.dtos.ResponseOrderDTO;
 import com.itschool.food.delivery.services.OrderService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Slf4j
+@RequestMapping
 @RestController
 public class OrderController {
 
@@ -16,25 +17,21 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/api/orders")
-    public ResponseEntity<OrderDTO> createUser(@RequestBody OrderDTO orderDTO) {
-        return ResponseEntity.ok(orderService.createOrder(orderDTO));
+    @PostMapping
+    public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody RequestOrderDTO requestOrderDTO) {
+        return ResponseEntity.ok(orderService.createOrder(requestOrderDTO));
     }
 
-    @GetMapping("/api/orders/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getOrderById(id));
+    @PatchMapping("/{id}")
+    public ResponseEntity<ResponseOrderDTO> updateOrder(@PathVariable Long id,@RequestBody RequestOrderDTO requestOrderDTO){
+        return ResponseEntity.ok(orderService.updateOrder(id, requestOrderDTO.getOrders()));
     }
 
-    @PutMapping("/api/orders/{id}")
-    public ResponseEntity<String> updateOrderById(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
-        OrderDTO updateOrderById = orderService.updateOrderById(id, orderDTO);
-        return ResponseEntity.ok("Order updated successfully");
-    }
-
-    @DeleteMapping("/api/orders/{id}")
-    public ResponseEntity<String> deleteOrderById(@PathVariable Long id) {
-        orderService.deleteOrderById(id);
-        return ResponseEntity.ok("Order deleted successfully");
+    @GetMapping("/filter")
+    public ResponseEntity<List<ResponseOrderDTO>> getOrders(
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "date", required = false) String date) {
+        return ResponseEntity.ok(orderService.getOrders(address, status, date));
     }
 }

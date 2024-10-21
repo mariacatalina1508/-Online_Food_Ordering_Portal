@@ -3,6 +3,7 @@ package com.itschool.food.delivery.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.OrderCreateException;
 import com.itschool.food.delivery.models.dtos.OrderDTO;
+import com.itschool.food.delivery.models.dtos.RequestOrderDTO;
 import com.itschool.food.delivery.models.entities.Order;
 import com.itschool.food.delivery.repositories.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO) {
+    public OrderDTO createOrder(RequestOrderDTO orderDTO) {
         Order OrderEntity = objectMapper.convertValue(orderDTO, Order.class);
         Order orderEntityResponse = orderRepository.save(OrderEntity);
         log.info("Order with id {} was saved", orderEntityResponse.getId());
