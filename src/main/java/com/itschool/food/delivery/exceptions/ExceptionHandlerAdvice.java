@@ -2,7 +2,6 @@ package com.itschool.food.delivery.exceptions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itschool.food.delivery.models.entities.Menu;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,7 +33,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(OrderCreateException.class)
     public ResponseEntity<String> orderCreateException(OrderCreateException orderCreateException) {
-        return new ResponseEntity<>(objectToString(Map.of("message", orderCreateException.getMessage())), NOT_FOUND;
+        return new ResponseEntity<>(objectToString(Map.of("message", orderCreateException.getMessage())), NOT_FOUND);
     }
 
     private String objectToString(Object response) {
