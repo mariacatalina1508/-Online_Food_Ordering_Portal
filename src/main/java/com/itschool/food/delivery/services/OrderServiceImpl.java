@@ -2,8 +2,7 @@ package com.itschool.food.delivery.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.OrderCreateException;
-import com.itschool.food.delivery.models.dtos.OrderDTO;
-import com.itschool.food.delivery.models.dtos.RequestOrderDTO;
+import com.itschool.food.delivery.models.dtos.*;
 import com.itschool.food.delivery.models.entities.Order;
 import com.itschool.food.delivery.repositories.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,28 +14,21 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private final ObjectMapper objectMapper;
-    public final OrderRepository orderRepository;
+
+    private final OrderRepository orderRepository;
 
     public OrderServiceImpl(ObjectMapper objectMapper, OrderRepository orderRepository) {
         this.objectMapper = objectMapper;
         this.orderRepository = orderRepository;
     }
-
     @Override
-    public OrderDTO createOrder(RequestOrderDTO orderDTO) {
-        Order OrderEntity = objectMapper.convertValue(orderDTO, Order.class);
-        Order orderEntityResponse = orderRepository.save(OrderEntity);
+    public ResponseOrderDTO createOrder(RequestOrderDTO requestOrderDTO) {
+        Order orderEntity = objectMapper.convertValue(requestOrderDTO, Order.class);
+        Order orderEntityResponse = orderRepository.save(orderEntity);
         log.info("Order with id {} was saved", orderEntityResponse.getId());
-        return objectMapper.convertValue(orderEntityResponse, OrderDTO.class);
-    }
 
-    @Override
-    public OrderDTO getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .map(order -> objectMapper.convertValue(order, OrderDTO.class))
-                .orElseThrow(() -> new OrderCreateException("Order with the ID " + id + "not found"));
+        return objectMapper.convertValue(orderEntityResponse, ResponseOrderDTO.class);
     }
-
     @Override
     public List<OrderDTO> getOrders() {
         List<Order> orders = orderRepository.findAll();
@@ -45,7 +37,12 @@ public class OrderServiceImpl implements OrderService {
                 .map(order -> objectMapper.convertValue(order, OrderDTO.class))
                 .toList();
     }
-
+    @Override
+    public OrderDTO getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .map(order -> objectMapper.convertValue(order, OrderDTO.class))
+                .orElseThrow(() -> new OrderCreateException("Order with the ID" + id + "not found"));
+    }
     @Override
     public OrderDTO updateOrderById(Long id, OrderDTO orderDTO) {
         if (orderDTO == null) {

@@ -14,19 +14,23 @@ public class MenuController {
     public MenuController(MenuService menuService) {
         this.menuService = menuService;
     }
+
     @PostMapping
     public ResponseEntity<MenuDTO> createMenu(@RequestBody MenuDTO menuDTO) {
         return ResponseEntity.ok(menuService.createMenu(menuDTO));
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<MenuDTO> getMenuById(@PathVariable Long id) {
         return ResponseEntity.ok(menuService.getMenuById(id));
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updateMenuById(@PathVariable Long id, @RequestBody MenuDTO menuDTO) {
         MenuDTO updateMenuById = menuService.updateMenuById(id, menuDTO);
         return ResponseEntity.ok("Menu updated successfully");
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMenuById(@PathVariable Long id) {
         menuService.deleteMenuById(id);

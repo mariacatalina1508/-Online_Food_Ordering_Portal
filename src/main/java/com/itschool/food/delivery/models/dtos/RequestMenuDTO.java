@@ -1,12 +1,11 @@
 package com.itschool.food.delivery.models.dtos;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class RequestOrderDTO {
+public class RequestMenuDTO {
 
     @NotNull(message = "The owner id is required")
     private Long Id;
@@ -18,8 +17,4 @@ public class RequestOrderDTO {
     private String description;
 
     private Double price;
-
-    @NotNull(message = "The status is required")
-    @Pattern(regexp = "Pending|Completed|Rejected", message = "Invalid status value")
-    private String status;
 }

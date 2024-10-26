@@ -3,6 +3,7 @@ package com.itschool.food.delivery.controllers;
 import com.itschool.food.delivery.models.dtos.RequestOrderDTO;
 import com.itschool.food.delivery.models.dtos.ResponseOrderDTO;
 import com.itschool.food.delivery.services.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -18,13 +19,14 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody RequestOrderDTO requestOrderDTO) {
+    public ResponseEntity<ResponseOrderDTO> createOrder(@Valid @RequestBody RequestOrderDTO requestOrderDTO) {
         return ResponseEntity.ok(orderService.createOrder(requestOrderDTO));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ResponseOrderDTO> updateOrder(@PathVariable Long id,@RequestBody RequestOrderDTO requestOrderDTO){
-        return ResponseEntity.ok(orderService.updateOrder(id, requestOrderDTO.getOrders()));
+    public ResponseEntity<String> updateOrder(@PathVariable Long id, @Valid @RequestBody RequestOrderDTO requestOrderDTO) {
+        orderService.updateOrder(id, requestOrderDTO);
+        return ResponseEntity.ok("Order edited");
     }
 
     @GetMapping("/filter")
