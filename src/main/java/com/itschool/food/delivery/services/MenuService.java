@@ -1,14 +1,18 @@
 package com.itschool.food.delivery.services;
 
-import com.itschool.food.delivery.models.dtos.MenuDTO;
-import com.itschool.food.delivery.models.dtos.ResponseMenuDTO;
+import com.itschool.food.delivery.models.dtos.*;
+
 import java.util.List;
 
 public interface MenuService {
 
-    ResponseMenuDTO createMenu(MenuDTO menuDTO);
-    ResponseMenuDTO getMenuById(Long id);
-    ResponseMenuDTO updateMenuById(Long id, MenuDTO menuDTO);
-    void deleteMenuById(Long id);
+    MenuDTO getMenuById(Long id);
+
+    ResponseMenuDTO createMenu(RequestMenuDTO requestMenuDTO);
+
     List<MenuDTO> getMenus();
+
+    MenuDTO updateMenuById(Long id, MenuDTO menuDTO);
+
+    void deleteMenuById(Long id);
 }

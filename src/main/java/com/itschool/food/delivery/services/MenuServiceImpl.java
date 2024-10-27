@@ -2,10 +2,17 @@ package com.itschool.food.delivery.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.MenuCreateException;
+import com.itschool.food.delivery.exceptions.MenuNotFoundException;
+import com.itschool.food.delivery.exceptions.OrderCreateException;
+import com.itschool.food.delivery.exceptions.OrderNotFoundException;
 import com.itschool.food.delivery.models.dtos.*;
 import com.itschool.food.delivery.models.entities.Menu;
+import com.itschool.food.delivery.models.entities.Order;
 import com.itschool.food.delivery.repositories.MenuRepository;
+import com.itschool.food.delivery.repositories.OrderRepository;
+import com.itschool.food.delivery.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -25,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
     public ResponseMenuDTO createMenu(RequestMenuDTO requestMenuDTO) {
         Menu menuEntity = objectMapper.convertValue(requestMenuDTO, Menu.class);
         Menu menuEntityResponse = menuRepository.save(menuEntity);
-        log.info("User with id {} was saved", menuEntityResponse.getId());
+        log.info("Menu with id {} was saved", menuEntityResponse.getId());
 
         return objectMapper.convertValue(menuEntityResponse, ResponseMenuDTO.class);
     }
@@ -37,11 +44,12 @@ public class MenuServiceImpl implements MenuService {
                 .map(menu -> objectMapper.convertValue(menu, MenuDTO.class))
                 .toList();
     }
+
     @Override
     public MenuDTO getMenuById(Long id) {
         return menuRepository.findById(id)
                 .map(menu -> objectMapper.convertValue(menu, MenuDTO.class))
-                .orElseThrow(() -> new MenuCreateException("Menu with the ID" + id + "not found"));
+                .orElseThrow(() -> new MenuNotFoundException("Menu with ID" + id + "not found"));
     }
     @Override
     public MenuDTO updateMenuById(Long id, MenuDTO menuDTO) {
@@ -49,11 +57,9 @@ public class MenuServiceImpl implements MenuService {
             throw new IllegalArgumentException("MenuDTO cannot be null");
         }
         return menuRepository.findById(id).map(existingMenu -> {
-            existingMenu.setId(menuDTO.getId() != null ? menuDTO.getId() : existingMenu.getId());
             existingMenu.setName(menuDTO.getName() != null ? menuDTO.getName() : existingMenu.getName());
             existingMenu.setDescription(menuDTO.getDescription() != null ? menuDTO.getDescription() : existingMenu.getDescription());
             existingMenu.setPrice(menuDTO.getPrice() != null ? menuDTO.getPrice() : existingMenu.getPrice());
-
 
             Menu updateMenu = menuRepository.save(existingMenu);
             log.info("Received MenuDTO: {}", menuDTO);
@@ -63,6 +69,8 @@ public class MenuServiceImpl implements MenuService {
     }
     @Override
     public void deleteMenuById(Long id) {
+        menuRepository.findById(id).orElseThrow(() -> new MenuNotFoundException("Menu with the id " + id + "not found"));
         menuRepository.deleteById(id);
+        log.info("Menu with the id {} was deleted", id);
     }
 }

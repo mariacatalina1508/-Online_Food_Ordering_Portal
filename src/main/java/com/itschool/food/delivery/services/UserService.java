@@ -9,10 +9,14 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    ResponseUserDTO createUser(RequestUserDTO userDTO);
-    ResponseUserDTO getUserById(Long id);
-    ResponseUserDTO updateUserById(Long id, UserDTO userDTO);
-    void deleteUserById(Long id);
+    UserDTO getUserById(Long id);
+
+    ResponseUserDTO createUser(RequestUserDTO requestUserDTO);
+
     List<UserDTO> getUsers();
-    List<ResponseUserDTO> getFilteredOwners(String firstName, String lastName, String phoneNumber, String email);
+
+    UserDTO updateUserById(Long id, UserDTO userDTO);
+    List<ResponseUserDTO> getFilteredUsers(String firstName, String lastName, String phoneNumber, String email, String address);
+
+    void deleteUserById(Long id);
 }

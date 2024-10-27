@@ -2,6 +2,7 @@ package com.itschool.food.delivery.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.OrderCreateException;
+import com.itschool.food.delivery.exceptions.OrderNotFoundException;
 import com.itschool.food.delivery.models.dtos.*;
 import com.itschool.food.delivery.models.entities.Order;
 import com.itschool.food.delivery.repositories.OrderRepository;
@@ -37,16 +38,18 @@ public class OrderServiceImpl implements OrderService {
                 .map(order -> objectMapper.convertValue(order, OrderDTO.class))
                 .toList();
     }
+
     @Override
     public OrderDTO getOrderById(Long id) {
         return orderRepository.findById(id)
                 .map(order -> objectMapper.convertValue(order, OrderDTO.class))
-                .orElseThrow(() -> new OrderCreateException("Order with the ID" + id + "not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID" + id + "not found"));
     }
+
     @Override
     public OrderDTO updateOrderById(Long id, OrderDTO orderDTO) {
         if (orderDTO == null) {
-            throw new IllegalArgumentException("Order cannot be null");
+            throw new IllegalArgumentException("OrderDTO cannot be null");
         }
         return orderRepository.findById(id).map(existingOrder -> {
             existingOrder.setUserId(orderDTO.getUserId() != null ? orderDTO.getUserId() : existingOrder.getUserId());
@@ -64,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrderById(Long id) {
+        orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order wit the id" + id + "not found"));
         orderRepository.deleteById(id);
+        log.info("Order with the id {} was deleted", id);
     }
 }

@@ -1,7 +1,8 @@
 package com.itschool.food.delivery.controllers;
 
-import com.itschool.food.delivery.models.dtos.MenuDTO;
+import com.itschool.food.delivery.models.dtos.*;
 import com.itschool.food.delivery.services.MenuService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,24 +17,24 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<MenuDTO> createMenu(@RequestBody MenuDTO menuDTO) {
-        return ResponseEntity.ok(menuService.createMenu(menuDTO));
+    public ResponseEntity<ResponseMenuDTO> createMenu(@Valid @RequestBody RequestMenuDTO requestMenuDTO) {
+        return ResponseEntity.ok(menuService.createMenu(requestMenuDTO));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<MenuDTO> getMenuById(@PathVariable Long id) {
         return ResponseEntity.ok(menuService.getMenuById(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<String> updateMenuById(@PathVariable Long id, @RequestBody MenuDTO menuDTO) {
-        MenuDTO updateMenuById = menuService.updateMenuById(id, menuDTO);
-        return ResponseEntity.ok("Menu updated successfully");
+        MenuDTO updatedMenuById = menuService.updateMenuById(id, menuDTO);
+        return ResponseEntity.ok("Updated menu");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteMenuById(@PathVariable Long id) {
         menuService.deleteMenuById(id);
-        return ResponseEntity.ok("Menu deleted successfully");
+        return ResponseEntity.ok("Menu deleted");
     }
 }

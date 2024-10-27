@@ -2,6 +2,7 @@ package com.itschool.food.delivery.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,6 +19,6 @@ public class Menu {
     @Column(name = "price")
     private Double price;
 
-    //@OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    //private List<Menu> menus;
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    private List<Menu> menus;
 }

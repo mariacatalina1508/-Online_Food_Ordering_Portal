@@ -7,9 +7,14 @@ import java.util.List;
 
 public interface OrderService {
 
-    ResponseOrderDTO createOrder(RequestOrderDTO OrderDTO);
-    ResponseOrderDTO updateOrderById(Long orderId, RequestOrderDTO orderDTO);
     OrderDTO getOrderById(Long id);
+
+    ResponseOrderDTO createOrder(RequestOrderDTO requestOrderDTO);
+
+    List<OrderDTO> getOrders();
+
+    OrderDTO updateOrderById(Long id, OrderDTO orderDTO);
+
     void deleteOrderById(Long id);
-    List<ResponseOrderDTO> getOrders(String address, String status, String date);
+
 }

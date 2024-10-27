@@ -21,4 +21,8 @@ public class Order {
     private String orderDate;
     @Column(name = "delivery_address")
     private String deliveryAddress;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Order order;
 }

@@ -28,8 +28,6 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public ResponseUserDTO createUser(RequestUserDTO requestUserDTO) {
-        validateEmailAddress(requestUserDTO);
-
         User userEntity = objectMapper.convertValue(requestUserDTO, User.class);
         User userEntityResponse = userRepository.save(userEntity);
         log.info("User with id {} was saved", userEntityResponse.getId());
@@ -37,19 +35,19 @@ public class UserServiceImpl implements UserService {
         return objectMapper.convertValue(userEntityResponse, ResponseUserDTO.class);
     }
     @Override
-    public UserDTO getUserById(Long id) {
-        return userRepository.findById(id)
-                .map(user -> objectMapper.convertValue(user, UserDTO.class))
-                .orElseThrow(() -> new UserNotFoundException("User with the ID" + id + "not found"));
-    }
-    @Override
-    public List<UserDTO> getUser() {
+    public List<UserDTO> getUsers() {
         List<User> users = userRepository.findAll();
 
         return users.stream()
                 .map(user -> objectMapper.convertValue(user, UserDTO.class))
                 .toList();
+    }
 
+    @Override
+    public UserDTO getUserById(Long id) {
+        return userRepository.findById(id)
+                .map(user -> objectMapper.convertValue(user, UserDTO.class))
+                .orElseThrow(() -> new UserNotFoundException("User with ID" + id + "not found"));
     }
     @Override
     public List<ResponseUserDTO> getFilteredUsers(String firstName, String lastName, String phoneNumber, String email, String address) {
@@ -77,7 +75,7 @@ public class UserServiceImpl implements UserService {
             existingUser.setLastName(userDTO.getLastName() != null ? userDTO.getLastName() : existingUser.getLastName());
             existingUser.setAddress(userDTO.getAddress() != null ? userDTO.getAddress() : existingUser.getAddress());
             existingUser.setPhoneNumber(userDTO.getPhoneNumber() != null ? userDTO.getPhoneNumber() : existingUser.getPhoneNumber());
-            existingUser.setEmail(userDTO.getEmail() != null ? userDTO.getEmail() : existingUser.getPhoneNumber());
+            existingUser.setEmail(userDTO.getEmail() != null ? userDTO.getEmail() : existingUser.getEmail());
 
             User updateUser = userRepository.save(existingUser);
             log.info("Received UserDTO: {}", userDTO);
