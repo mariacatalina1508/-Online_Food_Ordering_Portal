@@ -1,7 +1,9 @@
 package com.itschool.food.delivery.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
 import java.util.List;
 
 @Data
@@ -19,6 +21,6 @@ public class Menu {
     @Column(name = "price")
     private Double price;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    private List<Menu> menus;
+//    @ManyToMany(mappedBy = "menus")
+//    private List<Order> orders;
 }

@@ -3,16 +3,10 @@ package com.itschool.food.delivery.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itschool.food.delivery.exceptions.MenuCreateException;
 import com.itschool.food.delivery.exceptions.MenuNotFoundException;
-import com.itschool.food.delivery.exceptions.OrderCreateException;
-import com.itschool.food.delivery.exceptions.OrderNotFoundException;
 import com.itschool.food.delivery.models.dtos.*;
 import com.itschool.food.delivery.models.entities.Menu;
-import com.itschool.food.delivery.models.entities.Order;
 import com.itschool.food.delivery.repositories.MenuRepository;
-import com.itschool.food.delivery.repositories.OrderRepository;
-import com.itschool.food.delivery.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
